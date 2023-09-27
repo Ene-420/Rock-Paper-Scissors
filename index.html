@@ -3,9 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>RPS</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
-    <script src="RPC.js"></script>
+    <div class="container">
+        <h1>-----HUMAN VS MACHINES-----</h1>
+        <div class="player-choices">
+            <button class="rock"><img src="rps_images/rock_2.0.png" alt="rock_image"></button>
+            <button class="paper"><img src="rps_images/paper_2.0.png" alt="paper_image"></button>
+            <button class="scissors"><img src="rps_images/scissors_2.0.png" alt="scissors_image"></button>
+        </div>
+
+        <div class="score-board">
+            <div class="player-score">
+                <div>Player</div>
+                <div class='score-player'>0</div>
+            </div>
+            <div class=" computer-score">
+                <div>Computer</div>
+                <div class="score-computer">0</div>
+            </div>
+        </div>
+        <div class="winner"></div>
+        <div class="play-again"><button class="playAgain"> Play Again</button></div>
+
+    </div>
+
+    <script src="RPS.js"></script>
 </body>
 </html>

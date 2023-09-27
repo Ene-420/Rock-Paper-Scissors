@@ -1,3 +1,11 @@
+const computer = document.querySelector('.score-computer'); 
+const player = document.querySelector('.score-player');
+
+const winner = document.querySelector('.winner');
+const play = document.querySelector('.playAgain');
+
+let userScore= 0, computerScore =0;
+
 function getComputerChoice(){
     const computerOption =  ['rock', 'paper', 'scissors'];
 
@@ -7,8 +15,10 @@ function getComputerChoice(){
 
 
 
-const playRound = (playerSelectionChoice, computerChoice) =>{
-    let playerSelection = playerSelectionChoice.toLowerCase();
+const playRound = (playerSelection, computerChoice) =>{
+    console.log(playerSelection);
+    console.log(computerChoice);
+    //let playerSelection = playerSelectionChoice.toLowerCase();
 
     if(playerSelection === computerChoice) return "Run It Back, It's a tie";
 
@@ -28,36 +38,88 @@ const playRound = (playerSelectionChoice, computerChoice) =>{
 
 }
 
-// const player = "Rock";
-// const computer = getComputerChoice();
+const buttons = document.querySelectorAll('.player-choices button');
 
-// console.log(playRound(player, computer));
+buttons.forEach((button) => {
+    button.addEventListener('click', () =>{
+        
+
+        const output = playRound(button.className, getComputerChoice());
+        game(output);
+        // console.log(button);
+    });
+});
 
 
-function game(){
-    let userScore= 0, computerScore =0;
+function game(output){
+    
 
-    while((userScore + computerScore) !== 5){
-        let userChoice = prompt("Enter your weaopn");
-        const winner = playRound(userChoice, getComputerChoice());
-
-        if(winner.includes('User')){
-            userScore++;
-            console.log(` Player1:${userScore} \nComputer:${computerScore} `);
-        }
-
-        else if(winner.includes('Computer')){
-            computerScore++;
-            console.log(` Player1:${userScore} \nComputer:${computerScore} `);
-        }
-        else{
-            console.log(winner);
-        }
+    if(output.includes('User')){
+        userScore++;
+        player.textContent = userScore;
+        console.log(` Player1:${userScore} \nComputer:${computerScore} `);
     }
 
-    userScore > computerScore ? console.log('User Wins') : console.log('Computer Wins');
+    else if(output.includes('Computer')){
+        computerScore++;
+        computer.textContent =computerScore
+        console.log(` Player1:${userScore} \nComputer:${computerScore} `);
+    }
+    else{
+        console.log(output);
+    }
 
+    checkCount(computerScore, userScore);
 
 }
 
-game();
+function checkCount(computerPoints, userPoints){
+    if((computerPoints === 5) || (userPoints ===5)){
+        
+        buttons.forEach(button =>{
+            button.disabled = true;
+            button.classList.add('noHover');
+
+        })
+        
+        if(computerPoints > userPoints ){
+            winner.textContent = 'Computer Wins';
+        }
+
+        else{
+            winner.textContent = 'Player Wins';
+        }
+        play.style.visibility = 'visible';
+
+        
+    }
+
+}
+
+
+
+play.addEventListener('click', () => {
+
+    console.log('Hello');
+    startAgain();
+});
+
+function startAgain(){
+    
+    buttons.forEach(button =>{
+        button.disabled = false;
+        button.classList.remove('noHover');
+    })
+
+    userScore = 0, computerScore = 0;
+
+    computer.textContent = computerScore;
+    player.textContent = userScore;
+    winner.textContent='';
+    play.style.visibility= 'hidden';
+
+
+   
+}
+
+// game();
